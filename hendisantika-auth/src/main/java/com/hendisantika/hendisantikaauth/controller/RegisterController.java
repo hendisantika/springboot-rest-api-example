@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -81,6 +83,20 @@ public class RegisterController {
         }
 
         modelAndView.setViewName("confirm");
+        return modelAndView;
+    }
+
+    // Process confirmation link
+    @PostMapping(value = "/confirm")
+    public ModelAndView processConfirmationForm(ModelAndView modelAndView, BindingResult bindingResult,
+                                                @RequestParam Map<String, String> requestParams, RedirectAttributes redir) {
+        log.debug("Confirm endpoint - POST");
+
+        modelAndView.setViewName("confirm");
+
+        registrationService.confirmUser(requestParams.get("token"), requestParams.get("password"));
+
+        modelAndView.addObject("successMessage", "Your password has been set!");
         return modelAndView;
     }
 
