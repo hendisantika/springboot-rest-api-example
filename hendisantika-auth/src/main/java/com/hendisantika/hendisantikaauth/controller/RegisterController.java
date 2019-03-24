@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,6 +65,22 @@ public class RegisterController {
             modelAndView.setViewName("register");
         }
 
+        return modelAndView;
+    }
+
+    // Process confirmation link
+    @GetMapping("/confirm")
+    public ModelAndView showConfirmationPage(ModelAndView modelAndView, @RequestParam("token") String token) {
+
+        User user = registrationService.getUserForToken(token);
+
+        if (user == null) { // No token found in DB
+            modelAndView.addObject("invalidToken", "Oops!  This is an invalid confirmation link.");
+        } else { // Token found
+            modelAndView.addObject("confirmationToken", user.getConfirmationToken());
+        }
+
+        modelAndView.setViewName("confirm");
         return modelAndView;
     }
 
