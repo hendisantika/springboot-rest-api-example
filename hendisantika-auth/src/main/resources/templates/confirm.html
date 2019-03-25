@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="Amir Boroumand" name="author"/>
+    <link href="favicon.ico" rel="icon"/>
+
+    <title>Confirm</title>
+
+    <!-- Bootstrap core CSS -->
+    <link crossorigin="anonymous"
+          href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          rel="stylesheet"/>
+
+    <link rel="stylesheet" th:href="@{css/style.css}"/>
+    <link rel="stylesheet" th:href="@{css/fv.css}"/>
+</head>
+
+<body class="gray-bg">
+
+<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div>
+
+        <hr/>
+        <h4>Set Your Password</h4>
+
+        <div class="alert alert-success" role="alert"
+             th:if="${successMessage}" th:text="${successMessage}"></div>
+
+        <div class="alert alert-danger" role="alert"
+             th:if="${errorMessage}" th:text="${errorMessage}"></div>
+
+        <div class="alert alert-danger" role="alert"
+             th:if="${invalidToken}" th:text="${invalidToken}"></div>
+
+        <form action="#" class="m-t" id="passwordForm" method="post" role="form"
+              th:action="@{/confirm}" th:if="!${invalidToken}" th:object="${setPassword}">
+
+            <input name="token" th:value="${confirmationToken}" type="hidden"/>
+
+            <div class="form-group input-group">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-lock"></span>
+          </span>
+                <input class="form-control" id="password" name="password"
+                       placeholder="Password" required="true" type="password"/>
+                <span aria-hidden="true"
+                      class="glyphicon"></span>
+            </div>
+
+            <div class="form-group input-group has-feedback">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-lock"></span>
+          </span>
+                <input class="form-control" data-fv-identical="true" data-fv-identical-field="password"
+                       data-fv-identical-message="Both passwords must be identical" data-fv-notempty="true"
+                       data-fv-notempty-message="Please confirm password"
+                       id="signup-password-confirm"
+                       name="ConfirmPassword"
+                       placeholder="Confirm Password"
+                       type="password"/>
+
+                <div class="help-block with-errors"></div>
+            </div>
+
+
+            <button class="btn btn-primary block full-width m-b"
+                    type="submit">Save
+            </button>
+
+        </form>
+
+
+    </div>
+</div>
+
+<!-- jQuery-->
+<script
+        src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script
+        crossorigin="anonymous"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap Validator plugin -->
+<script
+        src="//cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+
+<script th:src="@{js/fv.min.js}"></script>
+
+</body>
+</html>
