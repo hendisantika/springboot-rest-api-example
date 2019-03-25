@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="User account registration" name="description"/>
+    <meta content="Amir Boroumand" name="author"/>
+    <link href="favicon.ico" rel="icon"/>
+
+    <title>Registration</title>
+
+    <!-- Bootstrap core CSS -->
+    <link
+            crossorigin="anonymous"
+            href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+            integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+            rel="stylesheet"/>
+
+    <link rel="stylesheet" th:href="@{css/style.css}"/>
+</head>
+
+<body class="gray-bg">
+
+<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div>
+
+        <h4>New User Registration</h4>
+
+        <form action="#" autocomplete="off" class="m-t"
+              data-toggle="validator" method="post" role="form" th:action="@{/register}"
+              th:object="${user}">
+
+            <div class="alert alert-success" role="alert"
+                 th:if="${confirmationMessage}" th:text="${confirmationMessage}"></div>
+
+            <div class="alert alert-danger" role="alert" th:if="${errorMessage}"
+                 th:text="${errorMessage}"></div>
+
+
+            <div class="validation-message alert alert-danger" role="alert"
+                 th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></div>
+
+
+            <div class="form-group input-group has-feedback">
+					<span class="input-group-addon"> <span
+                            class="glyphicon glyphicon-envelope"></span>
+					</span> <input class="form-control" data-error="This email address is invalid"
+                                   placeholder="Email Address" required="true"
+                                   th:field="*{email}" type="email"/> <span
+                    aria-hidden="true" class="glyphicon form-control-feedback"></span>
+
+            </div>
+
+            <button class="btn btn-primary block full-width m-b" type="submit">Register</button>
+
+        </form>
+
+    </div>
+</div>
+
+<!-- jQuery-->
+<script
+        src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script
+        crossorigin="anonymous"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap Validator plugin -->
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+
+
+</body>
+
+</html>
