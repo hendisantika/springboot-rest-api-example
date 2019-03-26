@@ -98,4 +98,24 @@ public class RegistrationServiceImplTest {
 
     }
 
+    @Test
+    public void givenNewUserWhenRegisteringUserThenVerifyEmailWasSentWithCorrectFrom() {
+
+        User user = new User();
+        user.setEmail("user@example.com");
+
+        // given user
+        given(userRepository.findOneByEmail("user@example.com")).willReturn(user);
+
+        // when registering new user
+        registrationService.registerUser(user);
+
+        // then email was sent
+        verify(emailService).sendEmail(mailMessageCaptor.capture());
+
+        SimpleMailMessage mail = mailMessageCaptor.getValue();
+        assertThat(mail.getFrom(), is("noreply@gigsterous.com"));
+
+    }
+
 }
