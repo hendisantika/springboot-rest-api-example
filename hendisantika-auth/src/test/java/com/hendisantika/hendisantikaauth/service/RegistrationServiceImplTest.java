@@ -1,11 +1,17 @@
 package com.hendisantika.hendisantikaauth.service;
 
 import com.hendisantika.hendisantikaauth.config.AuthProperties;
+import com.hendisantika.hendisantikaauth.model.User;
 import com.hendisantika.hendisantikaauth.repository.UserRepository;
 import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.BDDMockito.given;
 
 /**
  * Created by IntelliJ IDEA.
@@ -39,6 +45,23 @@ public class RegistrationServiceImplTest {
 
         registrationService = new RegistrationServiceImpl(userRepository, emailService, bCryptPasswordEncoder,
                 properties);
+
+    }
+
+    @Test
+    public void givenExistingUserWhenCheckingUserRegisteredThenReturnTrue() {
+
+        User user = new User();
+        user.setEmail("user@example.com");
+
+        // given existing user
+        given(userRepository.findOneByEmail("user@example.com")).willReturn(user);
+
+        // when checking user registered
+        boolean isRegistered = registrationService.isUserRegistered(user);
+
+        // then expect true
+        assertThat(isRegistered, is(true));
 
     }
 
