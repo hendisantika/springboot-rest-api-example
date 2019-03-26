@@ -5,13 +5,16 @@ import com.hendisantika.hendisantikaauth.model.User;
 import com.hendisantika.hendisantikaauth.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created by IntelliJ IDEA.
@@ -34,6 +37,10 @@ public class RegistrationServiceImplTest {
 
     private AuthProperties properties;
     private RegistrationService registrationService;
+
+    private ArgumentCaptor<SimpleMailMessage> mailMessageCaptor = ArgumentCaptor.forClass(SimpleMailMessage.class);
+    private ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
+
 
     @Before
     public void setUp() {
@@ -117,5 +124,31 @@ public class RegistrationServiceImplTest {
         assertThat(mail.getFrom(), is("noreply@gigsterous.com"));
 
     }
+
+    @Test
+    public void givenTokenAndPasswordWhenConfirmingUserThenVerifyUserWasSavedAndEnabled() {
+
+        User user = new User();
+        user.setEmail("user@example.com");
+        user.setConfirmationToken("1234");
+        user.setEnabled(false);
+        user.setPassword(null);
+
+        // given existing user
+        given(userRepository.findByConfirmationToken("1234")).willReturn(user);
+        given(bCryptPasswordEncoder.encode("password")).willReturn("encoded");
+
+        // when confirming user
+        registrationService.confirmUser("1234", "password");
+
+        // then expect user to be updated
+        verify(userRepository).save(userCaptor.capture());
+
+        User updatedUser = userCaptor.getValue();
+        assertThat(updatedUser.isEnabled(), is(true));
+        assertThat(updatedUser.getPassword(), is("encoded"));
+
+    }
+
 
 }
