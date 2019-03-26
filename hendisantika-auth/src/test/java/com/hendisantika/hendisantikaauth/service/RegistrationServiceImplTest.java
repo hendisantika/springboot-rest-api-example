@@ -2,7 +2,9 @@ package com.hendisantika.hendisantikaauth.service;
 
 import com.hendisantika.hendisantikaauth.config.AuthProperties;
 import com.hendisantika.hendisantikaauth.repository.UserRepository;
+import org.junit.Before;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
@@ -27,5 +29,17 @@ public class RegistrationServiceImplTest {
     private AuthProperties properties;
     private RegistrationService registrationService;
 
+    @Before
+    public void setUp() {
+
+        MockitoAnnotations.initMocks(this);
+
+        properties = new AuthProperties();
+        properties.setRedirectionUrl("http://www.example.com");
+
+        registrationService = new RegistrationServiceImpl(userRepository, emailService, bCryptPasswordEncoder,
+                properties);
+
+    }
 
 }
