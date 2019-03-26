@@ -80,4 +80,22 @@ public class RegistrationServiceImplTest {
 
     }
 
+    @Test
+    public void givenTokenWhenCheckingUserForTokenThenReturnCorrectUser() {
+
+        User user = new User();
+        user.setEmail("user@example.com");
+        user.setConfirmationToken("1234");
+
+        // given existing user
+        given(userRepository.findByConfirmationToken("1234")).willReturn(user);
+
+        // when getting user for token
+        User loadedUser = registrationService.getUserForToken("1234");
+
+        // then expect correct user to be loaded
+        assertThat(loadedUser.getEmail(), is("user@example.com"));
+
+    }
+
 }
