@@ -65,4 +65,19 @@ public class RegistrationServiceImplTest {
 
     }
 
+    @Test
+    public void givenNonExistingUserWhenCheckingUserRegisteredThenReturnFalse() {
+
+        // given new user
+        User user = new User();
+        user.setEmail("user@example.com");
+
+        // when checking user registered
+        boolean isRegistered = registrationService.isUserRegistered(user);
+
+        // then expect false
+        assertThat(isRegistered, is(false));
+
+    }
+
 }
