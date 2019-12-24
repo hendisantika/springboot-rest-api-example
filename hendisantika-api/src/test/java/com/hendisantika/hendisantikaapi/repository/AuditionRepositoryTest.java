@@ -33,7 +33,7 @@ public class AuditionRepositoryTest {
 
     @Test
     public void retrievesAllAuditions() {
-        Page<Audition> auditions = auditionRepository.findAll(new PageRequest(0, 10));
+        Page<Audition> auditions = auditionRepository.findAll(PageRequest.of(0, 10));
 
         assertEquals(2, auditions.getTotalElements());
     }
