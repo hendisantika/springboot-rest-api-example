@@ -2,11 +2,12 @@ package com.hendisantika.hendisantikaapi.model;
 
 import com.hendisantika.hendisantikaapi.model.enums.Instrument;
 import com.hendisantika.hendisantikaapi.model.enums.Level;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,7 +28,7 @@ public class AuditionTest {
         event.setName("Party");
 
         Audition audition = new Audition();
-        audition.setId(1l);
+        audition.setId(1L);
         audition.setEvent(event);
         audition.setOwner(person);
         audition.setCandidates(new HashSet<>());
@@ -35,11 +36,11 @@ public class AuditionTest {
         audition.setInstrument(Instrument.PIANO);
         audition.setLevel(Level.ADVANCED);
 
-        assertEquals(1l, audition.getId());
+        assertEquals(1L, audition.getId());
         assertEquals(event, audition.getEvent());
         assertEquals(person, audition.getOwner());
         assertEquals(0, audition.getCandidates().size());
-        assertEquals(null, audition.getSelectedMusician());
+        assertNull(audition.getSelectedMusician());
         assertEquals(Instrument.PIANO, audition.getInstrument());
         assertEquals(Level.ADVANCED, audition.getLevel());
     }

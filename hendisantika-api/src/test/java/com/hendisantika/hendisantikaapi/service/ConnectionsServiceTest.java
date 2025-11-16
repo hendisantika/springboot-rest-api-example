@@ -2,13 +2,13 @@ package com.hendisantika.hendisantikaapi.service;
 
 import com.hendisantika.hendisantikaapi.model.Ensemble;
 import com.hendisantika.hendisantikaapi.model.Person;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,7 +28,7 @@ public class ConnectionsServiceTest {
 
     private Person p1, p2, p3;
 
-    @Before
+    @BeforeEach
     public void init() {
         connectionsService = new ConnectionsServiceImpl();
 

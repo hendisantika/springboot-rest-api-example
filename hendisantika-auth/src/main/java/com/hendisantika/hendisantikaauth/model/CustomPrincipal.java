@@ -1,7 +1,5 @@
 package com.hendisantika.hendisantikaauth.model;
 
-import lombok.Data;
-
 import java.security.Principal;
 
 /**
@@ -13,10 +11,17 @@ import java.security.Principal;
  * Date: 2019-03-24
  * Time: 05:45
  */
-@Data
 public class CustomPrincipal implements Principal {
 
     private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     @Override
     public String getName() {

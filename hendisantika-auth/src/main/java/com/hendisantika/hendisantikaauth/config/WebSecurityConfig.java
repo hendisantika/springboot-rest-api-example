@@ -2,14 +2,15 @@ package com.hendisantika.hendisantikaauth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,45 +22,39 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
  * Time: 05:54
  */
 @Configuration
-@Order(-20)
-@EnableResourceServer
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+@EnableWebSecurity
+public class WebSecurityConfig {
 
     @Autowired
     @Qualifier("userDetailsService")
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
+    }
 
-        // @formatter:off
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/register", "/confirm").permitAll()
+                .authorizeHttpRequests(auth -> auth
+                                .requestMatchers("/register", "/confirm", "/actuator/**", "/h2-console/**").permitAll()
                 .anyRequest().authenticated()
-                .and()
-                .formLogin()
+                )
+                .formLogin(form -> form
                 .loginPage("/login")
                 .defaultSuccessUrl("/profile")
                 .permitAll()
-                .and()
-                .requestMatchers()
-                .antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access", "/*")
-                .and()
-                .logout()
-                .permitAll();
-        // @formatter:on
+                )
+                .logout(logout -> logout.permitAll())
+                .csrf(csrf -> csrf.disable())
+                .headers(headers -> headers.frameOptions(frame -> frame.disable()));
 
+        return http.build();
     }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.parentAuthenticationManager(authenticationManager);
-        auth.userDetailsService(userDetailsService);
-    }
-
 }
-

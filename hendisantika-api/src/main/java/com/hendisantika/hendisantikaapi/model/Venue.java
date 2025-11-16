@@ -1,8 +1,12 @@
 package com.hendisantika.hendisantikaapi.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
-
-import javax.persistence.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,7 +23,7 @@ import javax.persistence.*;
 public class Venue {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "venue_id")
     private long id;
 

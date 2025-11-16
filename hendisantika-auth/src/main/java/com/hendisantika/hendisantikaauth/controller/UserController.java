@@ -3,7 +3,8 @@ package com.hendisantika.hendisantikaauth.controller;
 import com.hendisantika.hendisantikaauth.model.CustomPrincipal;
 import com.hendisantika.hendisantikaauth.model.User;
 import com.hendisantika.hendisantikaauth.repository.UserRepository;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,9 +20,9 @@ import java.security.Principal;
  * Date: 2019-03-25
  * Time: 06:47
  */
-@Slf4j
 @RestController
 public class UserController {
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserRepository userRepo;

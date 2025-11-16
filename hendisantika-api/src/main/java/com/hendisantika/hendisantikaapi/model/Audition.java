@@ -3,9 +3,21 @@ package com.hendisantika.hendisantikaapi.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hendisantika.hendisantikaapi.model.enums.Instrument;
 import com.hendisantika.hendisantikaapi.model.enums.Level;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Data;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,7 +36,7 @@ import java.util.Set;
 public class Audition {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "audition_id")
     private long id;
 
@@ -54,5 +66,61 @@ public class Audition {
     @JsonIgnore
     @JoinColumn(name = "event_id")
     private Event event;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Instrument getInstrument() {
+        return instrument;
+    }
+
+    public void setInstrument(Instrument instrument) {
+        this.instrument = instrument;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
+    public Set<Person> getCandidates() {
+        return candidates;
+    }
+
+    public void setCandidates(Set<Person> candidates) {
+        this.candidates = candidates;
+    }
+
+    public Person getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
+    }
+
+    public Person getSelectedMusician() {
+        return selectedMusician;
+    }
+
+    public void setSelectedMusician(Person selectedMusician) {
+        this.selectedMusician = selectedMusician;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 
 }

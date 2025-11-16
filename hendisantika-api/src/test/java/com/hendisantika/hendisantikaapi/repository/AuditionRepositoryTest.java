@@ -3,17 +3,15 @@ package com.hendisantika.hendisantikaapi.repository;
 import com.hendisantika.hendisantikaapi.model.Audition;
 import com.hendisantika.hendisantikaapi.model.enums.Instrument;
 import com.hendisantika.hendisantikaapi.model.enums.Level;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by IntelliJ IDEA.
@@ -24,7 +22,6 @@ import static org.junit.Assert.assertEquals;
  * Date: 2019-03-22
  * Time: 06:11
  */
-@RunWith(SpringRunner.class)
 @DataJpaTest
 public class AuditionRepositoryTest {
 
@@ -40,12 +37,12 @@ public class AuditionRepositoryTest {
 
     @Test
     public void retrievesAuditionById() {
-        Optional<Audition> result = auditionRepository.findById(1l);
+        Optional<Audition> result = auditionRepository.findById(1L);
 
         assertEquals(Instrument.GUITAR, result.get().getInstrument());
         assertEquals(Level.ADVANCED, result.get().getLevel());
-        assertEquals(1l, result.get().getEvent().getId());
-        assertEquals(1l, result.get().getOwner().getId());
+        assertEquals(1L, result.get().getEvent().getId());
+        assertEquals(1L, result.get().getOwner().getId());
     }
 
 }

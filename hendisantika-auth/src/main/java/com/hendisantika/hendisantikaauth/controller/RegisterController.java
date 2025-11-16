@@ -2,7 +2,10 @@ package com.hendisantika.hendisantikaauth.controller;
 
 import com.hendisantika.hendisantikaauth.model.User;
 import com.hendisantika.hendisantikaauth.service.RegistrationService;
-import lombok.extern.slf4j.Slf4j;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.util.Map;
 
 /**
@@ -25,9 +26,9 @@ import java.util.Map;
  * Time: 06:41
  */
 
-@Slf4j
 @Controller
 public class RegisterController {
+    private static final Logger log = LoggerFactory.getLogger(RegisterController.class);
     private final RegistrationService registrationService;
 
     public RegisterController(RegistrationService registrationService) {

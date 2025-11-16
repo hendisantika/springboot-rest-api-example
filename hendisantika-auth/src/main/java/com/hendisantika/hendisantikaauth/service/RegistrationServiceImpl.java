@@ -3,7 +3,8 @@ package com.hendisantika.hendisantikaauth.service;
 import com.hendisantika.hendisantikaauth.config.AuthProperties;
 import com.hendisantika.hendisantikaauth.model.User;
 import com.hendisantika.hendisantikaauth.repository.UserRepository;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,9 @@ import java.util.UUID;
  * Date: 2019-03-24
  * Time: 05:49
  */
-@Slf4j
 @Service
 public class RegistrationServiceImpl implements RegistrationService {
+    private static final Logger log = LoggerFactory.getLogger(RegistrationServiceImpl.class);
 
     private final UserRepository userRepository;
     private final EmailService emailService;

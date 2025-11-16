@@ -3,11 +3,12 @@ package com.hendisantika.hendisantikaauth.service;
 import com.hendisantika.hendisantikaauth.config.AuthProperties;
 import com.hendisantika.hendisantikaauth.model.User;
 import com.hendisantika.hendisantikaauth.repository.UserRepository;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -25,6 +26,7 @@ import static org.mockito.Mockito.verify;
  * Date: 2019-03-26
  * Time: 07:08
  */
+@ExtendWith(MockitoExtension.class)
 public class RegistrationServiceImplTest {
     @Mock
     private UserRepository userRepository;
@@ -38,15 +40,12 @@ public class RegistrationServiceImplTest {
     private AuthProperties properties;
     private RegistrationService registrationService;
 
-    private ArgumentCaptor<SimpleMailMessage> mailMessageCaptor = ArgumentCaptor.forClass(SimpleMailMessage.class);
-    private ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
+    private final ArgumentCaptor<SimpleMailMessage> mailMessageCaptor = ArgumentCaptor.forClass(SimpleMailMessage.class);
+    private final ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
 
 
-    @Before
+    @BeforeEach
     public void setUp() {
-
-        MockitoAnnotations.initMocks(this);
-
         properties = new AuthProperties();
         properties.setRedirectionUrl("http://www.example.com");
 
@@ -110,9 +109,6 @@ public class RegistrationServiceImplTest {
 
         User user = new User();
         user.setEmail("user@example.com");
-
-        // given user
-        given(userRepository.findOneByEmail("user@example.com")).willReturn(user);
 
         // when registering new user
         registrationService.registerUser(user);

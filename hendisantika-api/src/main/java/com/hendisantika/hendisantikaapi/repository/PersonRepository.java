@@ -3,7 +3,7 @@ package com.hendisantika.hendisantikaapi.repository;
 import com.hendisantika.hendisantikaapi.model.Person;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  * Time: 21:11
  */
 @Repository
-public interface PersonRepository extends PagingAndSortingRepository<Person, Long> {
+public interface PersonRepository extends JpaRepository<Person, Long> {
 
     Page<Person> findAll(Pageable pageable);
 

@@ -3,9 +3,17 @@ package com.hendisantika.hendisantikaapi.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hendisantika.hendisantikaapi.model.enums.Instrument;
 import com.hendisantika.hendisantikaapi.model.enums.Level;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Data;
-
-import javax.persistence.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -22,7 +30,7 @@ import javax.persistence.*;
 public class Skill {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "skill_id")
     private long id;
 

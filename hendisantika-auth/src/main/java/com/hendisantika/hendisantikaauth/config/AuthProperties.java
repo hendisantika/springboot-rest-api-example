@@ -1,6 +1,5 @@
 package com.hendisantika.hendisantikaauth.config;
 
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,11 +12,17 @@ import org.springframework.context.annotation.Configuration;
  * Date: 2019-03-24
  * Time: 05:50
  */
-@Data
 @Configuration
 @ConfigurationProperties("auth")
 public class AuthProperties {
 
     private String redirectionUrl;
 
+    public String getRedirectionUrl() {
+        return redirectionUrl;
+    }
+
+    public void setRedirectionUrl(String redirectionUrl) {
+        this.redirectionUrl = redirectionUrl;
+    }
 }

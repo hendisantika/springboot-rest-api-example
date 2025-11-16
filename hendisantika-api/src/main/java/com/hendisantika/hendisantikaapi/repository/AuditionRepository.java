@@ -3,7 +3,7 @@ package com.hendisantika.hendisantikaapi.repository;
 import com.hendisantika.hendisantikaapi.model.Audition;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  * Time: 21:09
  */
 @Repository
-public interface AuditionRepository extends PagingAndSortingRepository<Audition, Long> {
+public interface AuditionRepository extends JpaRepository<Audition, Long> {
 
     Page<Audition> findAll(Pageable pageable);
 
